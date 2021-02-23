@@ -19,22 +19,7 @@ for (var i = 0; i < pacientes.length; i++) {
 
     var imc;
 
-    if (peso <= 0 || peso >= 1000) {
-        console.log("peso inválido");
-        validaPeso = false;
-        imc = "Peso Inválido"
-        pacienteAtual.querySelector(".info-imc").textContent = imc;
-        pacienteAtual.classList.add("paciente-invalido");
-    }
-
-    if (altura <= 0 || altura >= 4) {
-        console.log("altura inválida");
-        validaPeso = false
-        imc = "Altura Inválida"
-        pacienteAtual.querySelector(".info-imc").textContent = imc;
-        pacienteAtual.classList.add("paciente-invalido")
-    }
-
+   
     if (validaAltura && validaPeso) {
         imc = CalculaIMC(peso,altura);
         pacienteAtual.querySelector(".info-imc").textContent = imc;

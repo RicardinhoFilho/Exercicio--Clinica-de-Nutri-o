@@ -8,13 +8,40 @@ botaoAdicionar.addEventListener("click", (event) => {
 
     const paciente = ObtemPacienteDoForm(form);
 
+    const errorMessage = ValidaPaciente(paciente);
+
+    let errorList = document.querySelector(".error-list");
+    errorList.innerHTML = "";
+
+    if (errorMessage.length == 0) {
+
+        AdicionaPaciente(paciente);
+
+        form.reset();
+
+    } else {
+
+        ApontaErrosDoFormulario(errorMessage, errorList);
+
+    }
+})
+
+
+function ApontaErrosDoFormulario(errorMessage, errorList) {
+    errorMessage.forEach(erro => {
+        const li = document.createElement("li");
+        li.textContent = erro;
+        li.style.color = "red";
+
+        errorList.appendChild(li);
+    });
+}
+
+function AdicionaPaciente(paciente) {
+
     var tabela = document.querySelector("#tabela-pacientes");
     tabela.appendChild(MontaTr(paciente));
-
-    form.reset();
-
-
-})
+}
 
 //Coleta os dados do formulário
 function ObtemPacienteDoForm(form) {
@@ -36,13 +63,13 @@ function ObtemPacienteDoForm(form) {
 //Monta a nossa tr recebendo como parâmetro o paciente
 function MontaTr(paciente) {
     const pacienteTr = document.createElement("tr");
+    //const botaoEditar = document.createElement("button")
 
     const nometd = MontaTd(paciente.nome, "info-nome");
     const pesotd = MontaTd(paciente.peso, "info-peso");
-    const alturatd =MontaTd(paciente.altura,"info-altura")
-    const gorduratd =MontaTd(paciente.gordura,"info-gordura");
-    const imctd =MontaTd(paciente.imc,"info-imc");
-
+    const alturatd = MontaTd(paciente.altura, "info-altura")
+    const gorduratd = MontaTd(paciente.gordura, "info-gordura");
+    const imctd = MontaTd(paciente.imc, "info-imc");
     nometd.textContent = paciente.nome;
     pesotd.textContent = paciente.peso;
     alturatd.textContent = paciente.altura;
@@ -59,13 +86,15 @@ function MontaTr(paciente) {
     pacienteTr.classList.add("paciente");
 
 
+    
+    //paciente.appendChild(botaoEditar);
 
 
     return pacienteTr;
 }
 
 //monta a td, atribuindo a classe que ela representa 
-function MontaTd(dado, classe){
+function MontaTd(dado, classe) {
 
     var td = document.createElement("td");
     td.textContent = dado;
@@ -74,3 +103,17 @@ function MontaTd(dado, classe){
     return td;
 }
 
+
+function ValidaPaciente(paciente) {
+
+    let errorMessage = [];
+
+    if (paciente.nome.length == 0) errorMessage.push("O campo nome não foi preenchido");
+
+    if (paciente.peso <= 0 || paciente.peso >= 1000) errorMessage.push("Peso Inválido");
+
+    if (paciente.altura <= 0 || paciente.altura >= 4) errorMessage.push("Altura Inválida");
+
+    return errorMessage;
+
+}
