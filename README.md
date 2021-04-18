@@ -14,4 +14,5 @@
 
 </ul>
 
-/p>
+</p>
+<img style="width: 800px; margin: auto;" src="./.github/Exemplificacao.gif" alt="Exemplificação">

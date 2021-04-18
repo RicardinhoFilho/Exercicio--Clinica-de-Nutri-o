@@ -15,7 +15,7 @@ botaoAdicionar.addEventListener("click", (event) => {
 
     if (errorMessage.length == 0) {
 
-        adicionaPaciente(paciente);
+        AdicionaPaciente(paciente);
 
         form.reset();
 
